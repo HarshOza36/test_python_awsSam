@@ -34,6 +34,8 @@ jobs:
         run: |
           ls
           pwd
+          find . -iname workflows
+          find . -iname templates.*
       - name: sam build
         uses: TractorZoom/sam-cli-action@master
         with:
