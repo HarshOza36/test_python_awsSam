@@ -26,37 +26,25 @@ jobs:
           # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
   job_2:
-    name: Deploy
+    aws_sam:
     runs-on: ubuntu-latest
     steps:
-      - name: ls
-        shell: bash
-        run: |
-          ls
-      - name: pwd
-        shell: bash
-        run: |
-          pwd
-      - name: find worflows
-        shell: bash
-        run: |
-          find . -iname workflows
-      - name: find templates
-        shell: bash
-        run: |
-          find . -iname templates.*
+      - name: Checkout
+        uses: actions/checkout@master
+
       - name: sam build
-        uses: TractorZoom/sam-cli-action@master
+        uses: youyo/aws-sam-action/python3.8@master
         with:
-          sam_command: "build"
+          sam_command: build
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
       - name: sam deploy
-        uses: TractorZoom/sam-cli-action@master
+        uses: youyo/aws-sam-action/python3.8@master
         with:
-          sam_command: "deploy"
+          sam_command: 'deploy --no-fail-on-empty-changeset'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
