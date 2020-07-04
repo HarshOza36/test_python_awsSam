@@ -29,12 +29,21 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Find pwd and list of files
+      - name: ls
         shell: bash
         run: |
           ls
+      - name: pwd
+        shell: bash
+        run: |
           pwd
+      - name: find worflows
+        shell: bash
+        run: |
           find . -iname workflows
+      - name: find templates
+        shell: bash
+        run: |
           find . -iname templates.*
       - name: sam build
         uses: TractorZoom/sam-cli-action@master
