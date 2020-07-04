@@ -8,7 +8,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: sam build
-        uses: youyo/aws-sam-action/python3.8@master
+        uses: youyo/aws-sam-action/python3.6@master
         with:
           sam_command: build
         env:
@@ -17,7 +17,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: sam deploy
-        uses: youyo/aws-sam-action/python3.8@master
+        uses: youyo/aws-sam-action/python3.6@master
         with:
           sam_command: 'deploy --no-fail-on-empty-changeset'
         env:
